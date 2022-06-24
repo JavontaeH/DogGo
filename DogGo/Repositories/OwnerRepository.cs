@@ -98,16 +98,19 @@ namespace DogGo.Repositories
                                     Dogs = new List<Dog>()
                                 };
                             }
-                            owner.Dogs.Add(new Dog()
+                            if (!reader.IsDBNull(reader.GetOrdinal("dog name")))
                             {
-                                Name = reader.GetString(reader.GetOrdinal("dog name")),
-                                Breed = reader.GetString(reader.GetOrdinal("breed")),
-                                Notes = reader.IsDBNull(reader.GetOrdinal("notes")) ? null : reader.GetString(reader.GetOrdinal("notes")),
-                                ImageUrl = reader.IsDBNull(reader.GetOrdinal("imageurl")) ? null : reader.GetString(reader.GetOrdinal("imageurl")),
+                                owner.Dogs.Add(new Dog()
+                                {
+                                    Name = reader.GetString(reader.GetOrdinal("dog name")),
+                                    Breed = reader.GetString(reader.GetOrdinal("breed")),
+                                    Notes = reader.IsDBNull(reader.GetOrdinal("notes")) ? null : reader.GetString(reader.GetOrdinal("notes")),
+                                    ImageUrl = reader.IsDBNull(reader.GetOrdinal("imageurl")) ? null : reader.GetString(reader.GetOrdinal("imageurl")),
 
-                            });
+                                });
 
 
+                            }
                         }
 
                         reader.Close();
